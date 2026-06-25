@@ -1,19 +1,19 @@
 /**
- * Taro Admin Extension
+ * Tarot Admin Extension
  *
- * Registers the Taro admin UI extensions (components, etc.)
+ * Registers the Tarot admin UI extensions (components, etc.)
  * These are UI elements specific to the admin app.
  */
 
 import type { Component } from 'vue';
-import UserTaroSection from './components/UserTaroSection.vue';
+import UserTarotSection from './components/UserTarotSection.vue';
 
 export interface AdminExtension {
   userDetailsSections?: Component[];
 }
 
-export const taroAdminExtension: AdminExtension = {
-  userDetailsSections: [UserTaroSection],
+export const tarotAdminExtension: AdminExtension = {
+  userDetailsSections: [UserTarotSection],
 };
 
-export default taroAdminExtension;
+export default tarotAdminExtension;

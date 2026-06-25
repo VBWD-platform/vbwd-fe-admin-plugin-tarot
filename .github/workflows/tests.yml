@@ -25,7 +25,7 @@ jobs:
           submodules: recursive
 
       - name: Overlay plugin source
-        run: cp -r plugin-src/. vbwd-fe-admin/plugins/taro-admin/
+        run: cp -r plugin-src/. vbwd-fe-admin/plugins/tarot-admin/
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
@@ -48,8 +48,8 @@ jobs:
       - name: Run plugin tests
         run: |
           cd vbwd-fe-admin
-          if find plugins/taro-admin -name "*.spec.ts" -o -name "*.test.ts" | grep -q .; then
-            npx vitest run plugins/taro-admin --reporter=verbose
+          if find plugins/tarot-admin -name "*.spec.ts" -o -name "*.test.ts" | grep -q .; then
+            npx vitest run plugins/tarot-admin --reporter=verbose
           else
-            echo "No tests found for taro-admin — skipping."
+            echo "No tests found for tarot-admin — skipping."
           fi

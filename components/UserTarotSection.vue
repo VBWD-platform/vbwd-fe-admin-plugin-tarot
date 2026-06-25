@@ -1,47 +1,47 @@
 <template>
   <div
-    v-if="taroLimits"
-    class="section user-taro-section"
+    v-if="tarotLimits"
+    class="section user-tarot-section"
   >
-    <h3>🔮 {{ $t('taro.title', 'Taro Sessions') }}</h3>
+    <h3>🔮 {{ $t('tarot.title', 'Tarot Sessions') }}</h3>
     <div class="info-grid">
       <div class="info-item">
-        <label>{{ $t('taro.dailySessions', 'Daily Sessions') }}</label>
+        <label>{{ $t('tarot.dailySessions', 'Daily Sessions') }}</label>
         <span>
-          <strong>{{ taroLimits.daily_used }}</strong>
+          <strong>{{ tarotLimits.daily_used }}</strong>
           /
-          {{ taroLimits.daily_total }}
+          {{ tarotLimits.daily_total }}
         </span>
       </div>
     </div>
-    <div class="taro-actions">
+    <div class="tarot-actions">
       <button
-        data-testid="reset-taro-sessions-button"
+        data-testid="reset-tarot-sessions-button"
         class="action-btn secondary"
-        :disabled="taroResetting || mainLoading"
-        @click="handleResetTaroSessions"
+        :disabled="tarotResetting || mainLoading"
+        @click="handleResetTarotSessions"
       >
-        <span v-if="!taroResetting">
-          {{ $t('taro.resetSessions', 'Reset Sessions') }}
+        <span v-if="!tarotResetting">
+          {{ $t('tarot.resetSessions', 'Reset Sessions') }}
         </span>
         <span v-else>
-          {{ $t('taro.resettingSession', 'Resetting...') }}
+          {{ $t('tarot.resettingSession', 'Resetting...') }}
         </span>
       </button>
     </div>
     <p
-      v-if="taroResetSuccess"
+      v-if="tarotResetSuccess"
       class="success-message"
-      data-testid="taro-success-message"
+      data-testid="tarot-success-message"
     >
-      ✅ {{ $t('taro.resetSuccess', 'Taro sessions reset successfully') }}
+      ✅ {{ $t('tarot.resetSuccess', 'Tarot sessions reset successfully') }}
     </p>
     <p
-      v-if="taroResetError"
+      v-if="tarotResetError"
       class="error-message"
-      data-testid="taro-error-message"
+      data-testid="tarot-error-message"
     >
-      ❌ {{ taroResetError }}
+      ❌ {{ tarotResetError }}
     </p>
   </div>
 </template>
@@ -58,7 +58,7 @@ interface Props {
   userId: string;
 }
 
-interface TaroLimits {
+interface TarotLimits {
   daily_total: number;
   daily_remaining: number;
   daily_used: number;
@@ -67,19 +67,19 @@ interface TaroLimits {
 const props = defineProps<Props>();
 const usersStore = useUsersStore();
 
-const taroLimits = ref<TaroLimits | null>(null);
-const taroResetting = ref(false);
-const taroResetSuccess = ref(false);
-const taroResetError = ref<string | null>(null);
+const tarotLimits = ref<TarotLimits | null>(null);
+const tarotResetting = ref(false);
+const tarotResetSuccess = ref(false);
+const tarotResetError = ref<string | null>(null);
 
 const mainLoading = computed(() => props.loading);
 
 /**
- * Fetch taro session limits and usage for this user from the taro plugin (admin endpoint)
+ * Fetch tarot session limits and usage for this user from the tarot plugin (admin endpoint)
  */
-async function fetchTaroLimits(): Promise<void> {
+async function fetchTarotLimits(): Promise<void> {
   try {
-    const response = await api.get(`/taro/admin/users/${props.userId}/sessions`) as {
+    const response = await api.get(`/tarot/admin/users/${props.userId}/sessions`) as {
       success: boolean;
       daily_limit: number;
       daily_remaining: number;
@@ -88,64 +88,64 @@ async function fetchTaroLimits(): Promise<void> {
     };
 
     if (response.success) {
-      taroLimits.value = {
+      tarotLimits.value = {
         daily_total: response.daily_limit,
         daily_remaining: response.daily_remaining,
         daily_used: response.daily_used,
       };
     }
   } catch (error) {
-    // Silently fail - user might not have taro plugin or be an admin user
-    console.warn('Failed to fetch taro limits:', error);
-    taroLimits.value = null;
+    // Silently fail - user might not have tarot plugin or be an admin user
+    console.warn('Failed to fetch tarot limits:', error);
+    tarotLimits.value = null;
   }
 }
 
 /**
- * Handle reset taro sessions button click
+ * Handle reset tarot sessions button click
  */
-async function handleResetTaroSessions(): Promise<void> {
-  taroResetting.value = true;
-  taroResetSuccess.value = false;
-  taroResetError.value = null;
+async function handleResetTarotSessions(): Promise<void> {
+  tarotResetting.value = true;
+  tarotResetSuccess.value = false;
+  tarotResetError.value = null;
 
   try {
-    await usersStore.resetTaroSessions(props.userId);
-    taroResetSuccess.value = true;
+    await usersStore.resetTarotSessions(props.userId);
+    tarotResetSuccess.value = true;
 
-    // Refresh the taro limits
-    await fetchTaroLimits();
+    // Refresh the tarot limits
+    await fetchTarotLimits();
 
     // Clear success message after 5 seconds
     setTimeout(() => {
-      taroResetSuccess.value = false;
+      tarotResetSuccess.value = false;
     }, 5000);
   } catch (err) {
-    taroResetError.value = (err as Error).message || 'Failed to reset Taro sessions';
+    tarotResetError.value = (err as Error).message || 'Failed to reset Tarot sessions';
     // Clear error message after 5 seconds
     setTimeout(() => {
-      taroResetError.value = null;
+      tarotResetError.value = null;
     }, 5000);
   } finally {
-    taroResetting.value = false;
+    tarotResetting.value = false;
   }
 }
 
-// Fetch taro limits when component mounts
+// Fetch tarot limits when component mounts
 onMounted(() => {
-  fetchTaroLimits();
+  fetchTarotLimits();
 });
 </script>
 
 <style scoped>
-.user-taro-section {
+.user-tarot-section {
   background: linear-gradient(135deg, #f0e6ff 0%, #f8f9fa 100%);
   border-left: 4px solid #8b5cf6;
   border-radius: 8px;
   padding: 20px;
 }
 
-.user-taro-section h3 {
+.user-tarot-section h3 {
   margin: 0 0 15px 0;
   color: #2c3e50;
   font-size: 1.1rem;
@@ -184,7 +184,7 @@ onMounted(() => {
   font-size: 1.2rem;
 }
 
-.taro-actions {
+.tarot-actions {
   margin-top: 15px;
   display: flex;
   gap: 10px;

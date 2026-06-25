@@ -1,9 +1,9 @@
 {
-  "taro": {
-    "title": "Taro Sessions",
+  "tarot": {
+    "title": "Tarot Sessions",
     "dailySessions": "Daily Sessions",
     "resetSessions": "Reset Sessions",
     "resettingSession": "Resetting...",
-    "resetSuccess": "Taro sessions reset successfully"
+    "resetSuccess": "Tarot sessions reset successfully"
   }
 }

@@ -1,13 +1,13 @@
 /**
- * Taro Admin Plugin
+ * Tarot Admin Plugin
  *
- * Admin-side plugin that provides Taro admin extensions.
- * Completely independent from the user-side Taro plugin.
+ * Admin-side plugin that provides Tarot admin extensions.
+ * Completely independent from the user-side Tarot plugin.
  */
 
 import type { IPlugin, IPlatformSDK } from 'vbwd-view-component';
 import { extensionRegistry } from '../../vue/src/plugins/extensionRegistry';
-import taroAdminExtension from './extension';
+import tarotAdminExtension from './extension';
 import en from './locales/en.json';
 import de from './locales/de.json';
 import es from './locales/es.json';
@@ -17,33 +17,33 @@ import ru from './locales/ru.json';
 import th from './locales/th.json';
 import zh from './locales/zh.json';
 
-export const taroAdminPlugin: IPlugin = {
-  name: 'taro-admin',
+export const tarotAdminPlugin: IPlugin = {
+  name: 'tarot-admin',
   version: '1.0.0',
-  description: 'Admin extension for Taro',
+  description: 'Admin extension for Tarot',
 
   install(sdk: IPlatformSDK) {
     // Translations
-    sdk.addTranslations('en', { taro: (en as Record<string, unknown>)['taro'] });
-    sdk.addTranslations('de', { taro: (de as Record<string, unknown>)['taro'] });
-    sdk.addTranslations('es', { taro: (es as Record<string, unknown>)['taro'] });
-    sdk.addTranslations('fr', { taro: (fr as Record<string, unknown>)['taro'] });
-    sdk.addTranslations('ja', { taro: (ja as Record<string, unknown>)['taro'] });
-    sdk.addTranslations('ru', { taro: (ru as Record<string, unknown>)['taro'] });
-    sdk.addTranslations('th', { taro: (th as Record<string, unknown>)['taro'] });
-    sdk.addTranslations('zh', { taro: (zh as Record<string, unknown>)['taro'] });
+    sdk.addTranslations('en', { tarot: (en as Record<string, unknown>)['tarot'] });
+    sdk.addTranslations('de', { tarot: (de as Record<string, unknown>)['tarot'] });
+    sdk.addTranslations('es', { tarot: (es as Record<string, unknown>)['tarot'] });
+    sdk.addTranslations('fr', { tarot: (fr as Record<string, unknown>)['tarot'] });
+    sdk.addTranslations('ja', { tarot: (ja as Record<string, unknown>)['tarot'] });
+    sdk.addTranslations('ru', { tarot: (ru as Record<string, unknown>)['tarot'] });
+    sdk.addTranslations('th', { tarot: (th as Record<string, unknown>)['tarot'] });
+    sdk.addTranslations('zh', { tarot: (zh as Record<string, unknown>)['tarot'] });
 
-    // Register Taro admin extensions
-    extensionRegistry.register('taro', taroAdminExtension);
+    // Register Tarot admin extensions
+    extensionRegistry.register('tarot', tarotAdminExtension);
   },
 
   activate() {
-    extensionRegistry.register('taro', taroAdminExtension);
+    extensionRegistry.register('tarot', tarotAdminExtension);
   },
 
   deactivate() {
-    extensionRegistry.unregister('taro');
+    extensionRegistry.unregister('tarot');
   },
 };
 
-export default taroAdminPlugin;
+export default tarotAdminPlugin;
