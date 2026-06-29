@@ -19,7 +19,7 @@ import zh from './locales/zh.json';
 
 export const tarotAdminPlugin: IPlugin = {
   name: 'tarot-admin',
-  version: '1.0.0',
+  version: '26.6',
   description: 'Admin extension for Tarot',
 
   install(sdk: IPlatformSDK) {
